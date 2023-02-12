@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <title>Klasifikasi Data Cacat</title>
+    </head>
+    <body
+        class="
+            flex flex-col
+            justify-between
+            item-center
+            p-8
+            min-h-screen
+            bg-gradient-to-r
+            from-green-400
+            to-blue-500
+            text-gray-800
+            md:flex-row
+        "
+    >
+        <main class="bg-white p-16 rounded-lg">
+            <h1 class="text-3xl font-bold mb-8">CEK KONDISI PRODUK:</h1>
+
+            <form
+                action="{{ url_for('predict') }}"
+                method="post"
+                class="flex flex-col"
+            >
+                <label for="Produk" class="mb-2">Nama Produk :</label>
+                <input
+                    type="text"
+                    name="Produk"
+                    placeholder="Produk"
+                    required="required"
+                    class="p-4 bg-gray-100 rounded-md"
+                />
+                <label for="BeratProduk" class="mt-4 mb-2">Berat Produk:</label >
+                <select name="BeratProduk" id="BeratProduk"class="p-4 bg-gray-100 rounded-md">
+                    <option disabled="disabled" selected="selected">Pilih Berat Produk</option>
+                    <option value="kecil">Kecil</option>
+                    <option value="sedang">Sedang</option>
+                    <option value="besar">Besar</option>
+                </select>
+
+                <label for="BentukProduk" class="mt-4 mb-2">Bentuk Produk:</label>
+                <select name="BentukProduk" id="BentukProduk" class="p-4 bg-gray-100 rounded-md">
+                    <option disabled="disabled" selected="selected">Pilih Bentuk Produk</option>
+                    <option value="kecil">Kecil</option>
+                    <option value="besar">Besar</option>
+                </select>
+
+                <label for="Pengukuran" class="mt-4 mb-2">Pengukuran:</label>
+                <select name="Pengukuran" id="Pengukuran" class="p-4 bg-gray-100 rounded-md">
+                    <option disabled="disabled" selected="selected">Pilih Pengukuran</option>
+                    <option value="ada">Ada</option>
+                    <option value="tidak Ada">Tidak Ada</option>
+                </select>
+
+                <label for="UkuranCacat" class="mt-4 mb-2">Ukuran Cacat:</label>
+                <select name="UkuranCacat" id="UkuranCacat" class="p-4 bg-gray-100 rounded-md">
+                    <option disabled="disabled" selected="selected">Pilih Ukuran Cacat</option>
+                    <option value="kecil">Kecil</option>
+                    <option value="besar">Besar</option>
+                    <option value="tidak ada">Tidak ada</option>
+                </select>
+
+                <label for="Posisi" class="mt-4 mb-2">Posisi:</label>
+                <select name="Posisi" id="Posisi" class="p-4 bg-gray-100 rounded-md">
+                    <option disabled="disabled" selected="selected">Pilih Posisi</option>
+                    <option value="luar">Luar</option>
+                    <option value="dalam">Dalam</option>
+                </select>
+
+                <label for="Area" class="mt-4 mb-2">Area:</label>
+                <select name="Area" id="Area" class="p-4 bg-gray-100 rounded-md">
+                    <option disabled="disabled" selected="selected">Pilih Area</option>
+                    <option value="Lock">Lock</option>
+                    <option value="NoLock">Nolock</option>
+                </select>
+
+                <button
+                    type="submit"
+                    class="
+                        flex
+                        justify-center
+                        align-center
+                        mt-8
+                        p-4
+                        bg-gradient-to-r
+                        from-green-400
+                        to-blue-500
+                        text-white
+                        rounded-md
+                    "
+                >
+                    PREDIKSI SEKARANG
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-arrow-right ml-4"
+                    >
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+        </main>
+        <section class="mt-8 h-full flex-auto rounded-lg md:mt-0 md:ml-8">
+            <div class="bg-white p-16 rounded-lg">
+                <h1 class="text-2xl mb-8">HASIL DARI PREDIKSI PRODUK : </h1>
+                <h2 class="text-5xl font-bold">- {{ Hasil }}</h2>
+                {% if (Hasil) != 0 %}
+                <div class="mt-8">
+                    <p>Produk: {{ Produk }}</p>
+                    <p>Berat Produk: {{ BeratProduk }}</p>
+                    <p>Bentuk Produk: {{ BentukProduk }}</p>
+                    <p>Pengukuran: {{ Pengukuran }} </p>
+                    <p>Ukuran Cacat: {{ UkuranCacat }}</p>
+                    <p>Posisi: {{ Posisi }}</p>
+                    <p>Area: {{ Area }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    </body>
+</html>
